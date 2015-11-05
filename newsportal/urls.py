@@ -17,5 +17,8 @@ from django.conf.urls import include, url
 from django.contrib import admin
 
 urlpatterns = [
+    url(r'^media/(?P<path>.*)$', 'django.views.static.serve',
+        {'document_root': '/home/hellpirat/work/newsportal'}),
+    url(r'^redactor/', include('redactor.urls')),
     url(r'^admin/', include(admin.site.urls)),
 ]

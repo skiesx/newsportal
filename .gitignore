@@ -123,3 +123,4 @@ test_gen.caches
 TEST-*.xml
 junit*.properties
 
+/media
