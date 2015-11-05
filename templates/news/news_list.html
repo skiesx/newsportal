@@ -1,0 +1,4 @@
+{% for news in object_list %}
+    <p><a href="{{ news.slug }}">{{ news.title }}</a></p>
+{#    <a href="{{ object.get_absolute_url }}">{{ object.name }}</a>#}
+{% endfor %}

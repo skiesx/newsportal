@@ -41,10 +41,25 @@ class News(models.Model):
     is_active = models.BooleanField(verbose_name="Publish?")
     gallery = models.ManyToManyField(Galleries, blank=True, verbose_name="Gallery")
     count_views = models.IntegerField(default=0, verbose_name="Views")
-    slug = models.SlugField(verbose_name="Slug")
+    slug = models.SlugField(unique=True, blank=True, verbose_name="Slug")
 
     def __unicode__(self):
         return self.title
+
+    def save(self):
+        super(News, self).save()
+        # import datetime
+        from django.template.defaultfilters import slugify
+        # date = datetime.date.today()
+        # self.slug = '%i/%i/%i/%s' % (
+        #     date.year, date.month, date.day, slugify(self.title)
+        # )
+        self.slug = slugify(self.id)
+        super(News, self).save()
+
+    @models.permalink
+    def get_absolute_url(self):
+        return ('news_view', (), {'slug': self.slug})
 
     class Meta:
         verbose_name = "News"

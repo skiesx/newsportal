@@ -1,0 +1,15 @@
+
+<p>{{ news.title }}</p>
+<p>{% for category in categories %}
+    {{ category }}
+{% endfor %}
+</p>
+<img src="{{  news.image  }}">
+{{ news.description|safe }}
+
+
+<p>{{ news.author }}</p>
+<p>{{ news.create_date }}</p>
+<p>{{ news.pub_date }}</p>
+<p>{{ news.is_active }}</p>
+<p>{{ news.count_views }}</p>
