@@ -1,0 +1,16 @@
+
+{% extends 'base.html' %}
+{% block latest-news %}
+{% for news in object_list %}
+    <ul class="ccr-latest-post">
+							<li>
+								<div class="ccr-thumbnail">
+									<img src="{{ news.image.url }}" alt="Thumbnail 1">
+									<p><a href="{{ news.slug }}">Read More</a></p>
+								</div>
+								<h4><a href="{{ news.slug }}">{{ news.title }}</a></h4>
+							</li>
+						</ul>
+{#    <a href="{{ object.get_absolute_url }}">{{ object.name }}</a>#}
+{% endfor %}
+{% endblock %}

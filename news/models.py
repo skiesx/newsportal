@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User
 from mptt.models import MPTTModel, TreeForeignKey
 from redactor.fields import RedactorField
+from taggit.managers import TaggableManager
 
 # Create your models here.
 
@@ -34,14 +35,17 @@ class News(models.Model):
     title = models.CharField(max_length=255, verbose_name="Title")
     categories = models.ManyToManyField(Categories, verbose_name="Categories")
     image = models.ImageField(upload_to='media/news/%Y/%m/%d', verbose_name='Image')
-    description = RedactorField(verbose_name="Description")
+    description = RedactorField(verbose_name="Description", upload_to='media/news/redactor/%Y/%m/%d')
     author = models.ForeignKey(User, verbose_name="Aumthor")
     create_date = models.DateTimeField(verbose_name='Create date', auto_now_add=True)
     pub_date = models.DateTimeField(verbose_name='Publish date')
     is_active = models.BooleanField(verbose_name="Publish?")
     gallery = models.ManyToManyField(Galleries, blank=True, verbose_name="Gallery")
     count_views = models.IntegerField(default=0, verbose_name="Views")
+    like = models.IntegerField(default=0, verbose_name="Likes")
     slug = models.SlugField(unique=True, blank=True, verbose_name="Slug")
+    #comments?
+    tag = TaggableManager()
 
     def __unicode__(self):
         return self.title

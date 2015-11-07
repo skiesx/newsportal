@@ -1,0 +1,33 @@
+{% extends "base_single_page.html" %}
+{% block news_descripton %}
+
+
+<article id="ccr-article">
+				<h1><a href="{{ news.slug }}" >{{ news.title }}</a></h1>
+
+				<div class="article-like-comment-date">
+					Posted by <a href="{{ news.author_id }}">{{ news.author }}</a> on <time datetime="{{ news.pub_date }}">{{ news.pub_date }}</time> in <a href="#category">
+                    {% for category in categories %}
+					    {{ category }}
+					{% endfor %}
+					</a>
+
+					<a class="like" href="#"><i class="fa fa-thumbs-o-up"></i>{{ news.like }}</a>
+					<a class="comments" href="#"><i class="fa fa-comments-o"></i> 49</a>
+
+				</div> <!-- /.article-like-comment-date -->
+
+				<img src="{{ news.image.url }}" alt="1st Image">
+				{{ news.description|safe }}
+
+				<div class="article-tags">
+{#					Tag: <a href="#tag1">Entertainment</a>, <a href="#tag2">Holiwood</a>, <a href="#tag3">Movie</a>#}
+                    Tag: {% for tag in object.tag.all %}
+                        <a href="#tag">{{ tag }} </a>
+                    {% endfor %}
+                    
+				</div>
+
+</article>
+
+{% endblock %}
