@@ -17,6 +17,10 @@ class NewsAdmin(admin.ModelAdmin):
                      'classes': ('collapse',),
                      'fields': ('pub_date', 'is_active', 'tag')
                  }),
+                 ('Comments', {
+                     'classes': ('collapse',),
+                     'fields': ('comments',)
+                 }),
     )
 
 admin.site.register(Categories, CustomCategoriesModelAdmin)
