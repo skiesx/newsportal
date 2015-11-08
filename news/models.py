@@ -51,7 +51,7 @@ class News(models.Model):
     description = RedactorField(verbose_name="Description", upload_to='media/news/redactor/%Y/%m/%d')
     author = models.ForeignKey(User, verbose_name="Author")
     create_date = models.DateTimeField(verbose_name='Create date', auto_now_add=True)
-    pub_date = models.DateTimeField(verbose_name='Publish date')
+    pub_date = models.DateTimeField(verbose_name='Publish date', blank=True)
     is_active = models.BooleanField(verbose_name="Publish?")
     gallery = models.ManyToManyField(Galleries, blank=True, verbose_name="Gallery")
     count_views = models.IntegerField(default=0, verbose_name="Views")
