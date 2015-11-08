@@ -2,15 +2,21 @@
 {% extends 'base.html' %}
 {% block latest-news %}
 {% for news in object_list %}
-    <ul class="ccr-latest-post">
-							<li>
-								<div class="ccr-thumbnail">
-									<img src="{{ news.image.url }}" alt="Thumbnail 1">
-									<p><a href="{{ news.slug }}">Read More</a></p>
-								</div>
-								<h4><a href="{{ news.slug }}">{{ news.title }}</a></h4>
-							</li>
-						</ul>
-{#    <a href="{{ object.get_absolute_url }}">{{ object.name }}</a>#}
+    <article>
+					<figure class="blog-thumbnails">
+					<img src="{{ news.image.url }}" alt="Article Image ">
+					</figure>
+					<div class="blog-text">
+						<h1><a href="{{ news.slug }}">{{ news.title }}</a></h1>
+
+                        {{ news.description|safe|truncatechars:255 }}
+
+						<div class="meta-data">
+							<a href="#" class="like"><i class="fa fa-thumbs-o-up"></i> {{ news.like }}</a>
+							<a href="#" class="comments"><i class="fa fa-comments-o"></i> 49</a>
+							<span class="read-more"><a href="{{ news.slug }}">Read More</a></span>
+						</div>
+					</div> <!-- /.blog-text -->
+				</article>
 {% endfor %}
 {% endblock %}
