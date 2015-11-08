@@ -42,6 +42,7 @@ INSTALLED_APPS = (
     'mptt',
     'redactor',
     'taggit',
+    'embed_video',
 
     'news',
 )
@@ -125,3 +126,10 @@ STATICFILES_DIRS = (
 
 REDACTOR_OPTIONS = {'lang': 'en'}
 REDACTOR_UPLOAD = 'uploads/'
+
+EMBED_VIDEO_BACKENDS = (
+    'embed_video.backends.YoutubeBackend',
+    'embed_video.backends.VimeoBackend',
+    'embed_video.backends.SoundCloudBackend',
+    'my_app.backends.CustomBackend',
+)

@@ -3,6 +3,7 @@ from django.contrib.auth.models import User
 from mptt.models import MPTTModel, TreeForeignKey
 from redactor.fields import RedactorField
 from taggit.managers import TaggableManager
+from embed_video.fields import EmbedVideoField
 
 # Create your models here.
 
@@ -57,7 +58,7 @@ class News(models.Model):
     count_views = models.IntegerField(default=0, verbose_name="Views")
     like = models.IntegerField(default=0, verbose_name="Likes")
     slug = models.SlugField(unique=True, blank=True, verbose_name="Slug")
-    # video?
+    video = EmbedVideoField(verbose_name="Video", blank=True)
     comments = models.ManyToManyField(Comments, related_name='comments_news', verbose_name="Comments", blank=True)
     tag = TaggableManager()
 
