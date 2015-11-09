@@ -44,6 +44,7 @@ INSTALLED_APPS = (
     'redactor',
     'taggit',
     'embed_video',
+    'sitetree',
 
     'news',
 )

@@ -1,0 +1,19 @@
+{% load sitetree %}
+{% if sitetree_items %}
+<div class="collapse navbar-collapse ccr-nav-main">
+					<ul class="nav navbar-nav">
+	{% for item in sitetree_items %}
+		{% if item.insitetree  %}
+			<li>
+				<a href="{% sitetree_url for item %}" {% if item.hint %}title="{{ item.hint }}"{% endif %}>{{ item.title_resolved }}</a>
+				{% if item.has_children %}
+                    <ul class="sub-menu">
+					{% sitetree_children of item for sitetree template "sitetree/tree.html" %}
+                    </ul><!-- /.sub-menu -->
+				{% endif %}
+			</li>
+		{% endif %}
+	{% endfor %}
+    </ul> <!-- /  .nav -->
+</div><!-- /  .collapse .navbar-collapse  -->
+{% endif %}
