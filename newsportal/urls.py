@@ -2,7 +2,7 @@ from django.conf.urls import include, url
 from django.contrib import admin
 from django.conf import settings
 from django.conf.urls.static import static
-from django.views.generic.base import TemplateView
+from news.views import CategoryNewsList
 
 
 urlpatterns = [
@@ -13,8 +13,11 @@ urlpatterns = [
 
     url(r'^admin/', include(admin.site.urls)),
 
-    # url(r'^$', include('news.urls', namespace='news')),
+    url(r'^$', include('news.urls')),
+
     url(r'^news/', include('news.urls', namespace='news')),
+
+    url(r'^cat/([\w-]+)/$', CategoryNewsList.as_view(), name='category_list'),
 
 ]
 
