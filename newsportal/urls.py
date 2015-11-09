@@ -16,9 +16,6 @@ urlpatterns = [
     # url(r'^$', include('news.urls', namespace='news')),
     url(r'^news/', include('news.urls', namespace='news')),
 
-    url(r'^home/', TemplateView.as_view(template_name='base.html'))
-
-
 ]
 
 if not settings.DEBUG:

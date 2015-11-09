@@ -39,6 +39,7 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
+    'debug_toolbar',
     'mptt',
     'redactor',
     'taggit',
@@ -131,5 +132,4 @@ EMBED_VIDEO_BACKENDS = (
     'embed_video.backends.YoutubeBackend',
     'embed_video.backends.VimeoBackend',
     'embed_video.backends.SoundCloudBackend',
-    'my_app.backends.CustomBackend',
 )
