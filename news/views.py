@@ -8,7 +8,7 @@ from django.utils import timezone
 class NewsList(ListView):
     model = News, Categories
     queryset = News.objects.order_by('-pub_date')
-    paginate_by = 3
+    paginate_by = 5
 
     def get_context_data(self, **kwargs):
         context = super(NewsList, self).get_context_data(**kwargs)
@@ -35,14 +35,8 @@ class NewsDetailView(DetailView):
         context = super(NewsDetailView, self).get_context_data(**kwargs)
         context['popular_post'] = News.objects.order_by('-count_views')[:5]
         context['older_post'] = News.objects.order_by('-pub_date')[5:11]
-        related_posts = News.objects.filter(categories__in=self.object.categories.all())
-        # News.objects.filter(categories__in=self.object.categories.all()).exclude(self.object)
-        # News.objects.filter(categories__in=self.post.categories.all())
-        # News.objects.filter(categories__in=self.post.categories)
-        # News.objects.filter(categories__in=self.object.categories.all())
-
+        related_posts = News.objects.filter(categories__in=self.object.categories.all())[:4]
         context['related_post'] = related_posts
-        # context['related_post'] = News.objects.filter(categories__name="News")
         context['now'] = timezone.now()
         return context
 
@@ -59,7 +53,6 @@ class CategoryNewsList(ListView):
 
     def get_context_data(self, **kwargs):
         context = super(CategoryNewsList, self).get_context_data(**kwargs)
-        # context['category'] = News.objects.filter(categories__name='Celebrity')
         context['popular_post'] = News.objects.order_by('-count_views')[:5]
         context['older_post'] = News.objects.order_by('-pub_date')[5:11]
         context['now'] = timezone.now()
