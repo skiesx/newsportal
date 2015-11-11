@@ -1,5 +1,5 @@
 from django.contrib import admin
-from news.models import Categories, Galleries, News, Comments
+from news.models import Categories, Galleries, News
 from mptt.admin import MPTTModelAdmin
 from embed_video.admin import AdminVideoMixin
 
@@ -18,13 +18,8 @@ class NewsAdmin(AdminVideoMixin, admin.ModelAdmin):
                      'classes': ('collapse',),
                      'fields': ('pub_date', 'is_active', 'tag')
                  }),
-                 ('Comments', {
-                     'classes': ('collapse',),
-                     'fields': ('comments',)
-                 }),
     )
 
 admin.site.register(Categories, CustomCategoriesModelAdmin)
 admin.site.register(Galleries)
 admin.site.register(News, NewsAdmin)
-admin.site.register(Comments)

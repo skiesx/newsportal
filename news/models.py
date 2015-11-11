@@ -32,17 +32,17 @@ class Galleries(models.Model):
         verbose_name_plural = "Galleries"
 
 
-class Comments(models.Model):
-    user = models.ForeignKey(User, verbose_name="User")
-    news = models.ForeignKey('News', related_name='comments_news',  verbose_name='news')
-    comment = models.CharField(max_length=255, verbose_name="Comment")
-
-    def __unicode__(self):
-        return self.comment
-
-    class Meta:
-        verbose_name = "Comment"
-        verbose_name_plural = "Comments"
+# class Comments(models.Model):
+#     user = models.ForeignKey(User, verbose_name="User")
+#     news = models.ForeignKey('News', related_name='comments_news',  verbose_name='news')
+#     comment = models.CharField(max_length=255, verbose_name="Comment")
+#
+#     def __unicode__(self):
+#         return self.comment
+#
+#     class Meta:
+#         verbose_name = "Comment"
+#         verbose_name_plural = "Comments"
 
 
 class News(models.Model):
@@ -59,7 +59,7 @@ class News(models.Model):
     like = models.IntegerField(default=0, verbose_name="Likes")
     slug = models.SlugField(unique=True, blank=True, verbose_name="Slug")
     video = EmbedVideoField(verbose_name="Video", blank=True)
-    comments = models.ManyToManyField(Comments, related_name='comments_news', verbose_name="Comments", blank=True)
+    # comments = models.ManyToManyField(Comments, related_name='comments_news', verbose_name="Comments", blank=True)
     tag = TaggableManager()
 
     def __unicode__(self):
@@ -67,13 +67,13 @@ class News(models.Model):
 
     def save(self):
         super(News, self).save()
-        # import datetime
+        import datetime
         from django.template.defaultfilters import slugify
-        # date = datetime.date.today()
-        # self.slug = '%i/%i/%i/%s' % (
-        #     date.year, date.month, date.day, slugify(self.title)
-        # )
-        self.slug = slugify(self.id)
+        date = datetime.date.today()
+        self.slug = '%i/%i/%i/%s' % (
+            date.year, date.month, date.day, slugify(self.title)
+        )
+        # self.slug = slugify(self.id)
         super(News, self).save()
 
     @models.permalink

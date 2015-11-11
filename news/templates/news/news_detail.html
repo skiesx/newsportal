@@ -38,4 +38,11 @@
 				</div>
 </article>
 
+
+
+{% endblock %}
+
+{% block comments %}
+    {% load disqus_tags %}
+{% disqus_show_comments %}
 {% endblock %}

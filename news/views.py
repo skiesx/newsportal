@@ -1,4 +1,4 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
 from news.models import News, Categories
@@ -8,7 +8,6 @@ from django.utils import timezone
 class NewsList(ListView):
     model = News, Categories
     queryset = News.objects.order_by('-pub_date')
-    # queryset = Categories.objects.order_by('News')
     paginate_by = 3
 
     def get_context_data(self, **kwargs):

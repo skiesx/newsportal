@@ -38,6 +38,7 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.sites',
 
     'debug_toolbar',
     'mptt',
@@ -45,6 +46,7 @@ INSTALLED_APPS = (
     'taggit',
     'embed_video',
     'sitetree',
+    'disqus',
 
     'news',
 )
@@ -134,3 +136,6 @@ EMBED_VIDEO_BACKENDS = (
     'embed_video.backends.VimeoBackend',
     'embed_video.backends.SoundCloudBackend',
 )
+
+DISQUS_API_KEY = 'bnmBg7oxAgjX9FkEUv8BOfKHfMrLZK4LO5dtHv6Py44ufu81cJz01eB7foiDJMI5'
+DISQUS_WEBSITE_SHORTNAME = 'newsportal'
