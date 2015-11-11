@@ -13,8 +13,11 @@
 					{% endfor %}
 					</a>
 
-					<a class="like" href="#"><i class="fa fa-thumbs-o-up"></i>{{ news.like }}</a>
-					<a class="comments" href="#"><i class="fa fa-comments-o"></i> 49</a>
+					<a class="like" href="#"><i class="fa fa-eye"></i> {{ news.count_views }}</a>
+					<a href="{{ news.get_absolute_url }}#disqus_thread" data-disqus-identifier="{{ object.id }}" class="comments">
+                                <i class="fa fa-comments-o"></i>
+                                View Comments
+                            </a>
 
 				</div> <!-- /.article-like-comment-date -->
 

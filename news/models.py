@@ -57,7 +57,7 @@ class News(models.Model):
     is_active = models.BooleanField(verbose_name="Publish?")
     gallery = models.ManyToManyField(Galleries, blank=True, verbose_name="Gallery")
     count_views = models.IntegerField(default=0, verbose_name="Views")
-    like = models.IntegerField(default=0, verbose_name="Likes")
+    # like = models.IntegerField(default=0, verbose_name="Likes")
     # slug = models.SlugField(unique=True, blank=True, verbose_name="Slug")
     slug = AutoSlugField(populate_from='title', unique_with='pub_date', unique=True,
                          max_length=40, verbose_name="Slug")

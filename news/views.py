@@ -3,6 +3,7 @@ from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
 from news.models import News, Categories
 from django.utils import timezone
+from django.db.models import F
 
 
 class NewsList(ListView):
@@ -19,6 +20,15 @@ class NewsList(ListView):
 
 class NewsDetailView(DetailView):
     model = News
+
+    queryset = News.objects.all()
+
+    # add +1 in count_views when page is open
+    def get_object(self):
+        news_views = super(NewsDetailView, self).get_object()
+        news_views.count_views += 1
+        news_views.save()
+        return news_views
 
     def get_context_data(self, **kwargs):
         context = super(NewsDetailView, self).get_context_data(**kwargs)
