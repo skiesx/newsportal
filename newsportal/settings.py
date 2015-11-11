@@ -47,6 +47,7 @@ INSTALLED_APPS = (
     'embed_video',
     'sitetree',
     'disqus',
+    'autoslug',
 
     'news',
 )

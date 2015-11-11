@@ -4,6 +4,7 @@ from mptt.models import MPTTModel, TreeForeignKey
 from redactor.fields import RedactorField
 from taggit.managers import TaggableManager
 from embed_video.fields import EmbedVideoField
+from autoslug import AutoSlugField
 
 # Create your models here.
 
@@ -57,7 +58,8 @@ class News(models.Model):
     gallery = models.ManyToManyField(Galleries, blank=True, verbose_name="Gallery")
     count_views = models.IntegerField(default=0, verbose_name="Views")
     like = models.IntegerField(default=0, verbose_name="Likes")
-    slug = models.SlugField(unique=True, blank=True, verbose_name="Slug")
+    # slug = models.SlugField(unique=True, blank=True, verbose_name="Slug")
+    slug = AutoSlugField(populate_from=title, unique_with='pub_date', verbose_name="Slug")
     video = EmbedVideoField(verbose_name="Video", blank=True)
     # comments = models.ManyToManyField(Comments, related_name='comments_news', verbose_name="Comments", blank=True)
     tag = TaggableManager()
@@ -65,20 +67,9 @@ class News(models.Model):
     def __unicode__(self):
         return self.title
 
-    def save(self):
-        super(News, self).save()
-        import datetime
-        from django.template.defaultfilters import slugify
-        date = datetime.date.today()
-        self.slug = '%i/%i/%i/%s' % (
-            date.year, date.month, date.day, slugify(self.title)
-        )
-        # self.slug = slugify(self.id)
-        super(News, self).save()
-
-    @models.permalink
     def get_absolute_url(self):
-        return ('news_view', (), {'slug': self.slug})
+        from django.core.urlresolvers import reverse
+        return reverse('news:news_detail', args=[str(self.slug)])
 
     class Meta:
         verbose_name = "News"

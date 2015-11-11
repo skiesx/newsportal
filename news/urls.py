@@ -1,6 +1,6 @@
 from django.conf.urls import url
-from news.views import NewsList, NewsDetailView, CategoryNewsList
-from . import views
+from news.views import NewsList, NewsDetailView
+
 
 urlpatterns = [
 
