@@ -1,6 +1,7 @@
 
 {% extends 'base.html' %}
 
+{% load disqus_tags %}
 
 
 {% block latest-news %}
@@ -19,7 +20,12 @@
 
 						<div class="meta-data">
 							<a href="#" class="like"><i class="fa fa-thumbs-o-up"></i> {{ news.like }}</a>
-							<a href="#" class="comments"><i class="fa fa-comments-o"></i> {{ news.comments_news.count }}</a>
+							<a href="{{ news.get_absolute_url }}#disqus_thread" data-disqus-identifier="{{ object.id }}" class="comments">
+                                <i class="fa fa-comments-o"></i>
+                                View Comments
+                            </a>
+
+                            {% disqus_num_replies %}
 							<span class="read-more"><a href="{{ news.get_absolute_url }}">Read More</a></span>
 						</div>
 					</div> <!-- /.blog-text -->

@@ -59,7 +59,8 @@ class News(models.Model):
     count_views = models.IntegerField(default=0, verbose_name="Views")
     like = models.IntegerField(default=0, verbose_name="Likes")
     # slug = models.SlugField(unique=True, blank=True, verbose_name="Slug")
-    slug = AutoSlugField(populate_from=title, unique_with='pub_date', verbose_name="Slug")
+    slug = AutoSlugField(populate_from='title', unique_with='pub_date', unique=True,
+                         max_length=40, verbose_name="Slug")
     video = EmbedVideoField(verbose_name="Video", blank=True)
     # comments = models.ManyToManyField(Comments, related_name='comments_news', verbose_name="Comments", blank=True)
     tag = TaggableManager()
