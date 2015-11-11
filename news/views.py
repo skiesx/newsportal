@@ -3,7 +3,6 @@ from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
 from news.models import News, Categories
 from django.utils import timezone
-from django.db.models import F
 
 
 class NewsList(ListView):
@@ -14,6 +13,8 @@ class NewsList(ListView):
     def get_context_data(self, **kwargs):
         context = super(NewsList, self).get_context_data(**kwargs)
         context['categories'] = Categories.objects.all()
+        context['popular_post'] = News.objects.order_by('-count_views')[:5]
+        context['older_post'] = News.objects.order_by('-pub_date')[5:11]
         context['now'] = timezone.now()
         return context
 
@@ -32,6 +33,8 @@ class NewsDetailView(DetailView):
 
     def get_context_data(self, **kwargs):
         context = super(NewsDetailView, self).get_context_data(**kwargs)
+        context['popular_post'] = News.objects.order_by('-count_views')[:5]
+        context['older_post'] = News.objects.order_by('-pub_date')[5:11]
         context['now'] = timezone.now()
         return context
 
@@ -49,5 +52,7 @@ class CategoryNewsList(ListView):
     def get_context_data(self, **kwargs):
         context = super(CategoryNewsList, self).get_context_data(**kwargs)
         # context['category'] = News.objects.filter(categories__name='Celebrity')
+        context['popular_post'] = News.objects.order_by('-count_views')[:5]
+        context['older_post'] = News.objects.order_by('-pub_date')[5:11]
         context['now'] = timezone.now()
         return context

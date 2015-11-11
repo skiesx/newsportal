@@ -1,5 +1,6 @@
 {% extends "base_single_page.html" %}
  {% load embed_video_tags %}
+{% load disqus_tags %}
 {% block news_descripton %}
 
 
@@ -48,4 +49,59 @@
 {% block comments %}
     {% load disqus_tags %}
 {% disqus_show_comments %}
+{% endblock %}
+
+{% block popular_post %}
+<section id="sidebar-popular-post">
+				<div class="ccr-gallery-ttile">
+					<span></span>
+					<p><strong>Popular Post</strong></p>
+				</div> <!-- .ccr-gallery-ttile -->
+				<ul>
+					{% for news in popular_post %}
+                    <li>
+						<img src="{{ news.image.url }}" alt="Avatar">
+						<a href="{{ news.get_absolute_url }}">{{ news.title }}</a>
+						<div class="date-like-comment">
+							<span class="date"><time datetime="{{ news.pub_date }}">{{ news.pub_date }}</time></span>
+							<a href="#" class="like"><i class="fa fa-eye"></i> {{ news.count_views }}</a>
+							<a href="{{ news.get_absolute_url }}#disqus_thread" data-disqus-identifier="{{ object.id }}" id="comment-number" class="comments">
+                                <i class="fa fa-comments-o"></i>
+
+                            </a>
+						</div>
+					</li>
+
+                {% endfor %}
+				</ul>
+
+			</section> <!-- /#sidebar-popular-post -->
+{% endblock %}
+
+{% block older_post %}
+
+    <section id="sidebar-older-post">
+				<div class="ccr-gallery-ttile">
+					<span></span>
+					<p><strong>Older Post</strong></p>
+				</div> <!-- .ccr-gallery-ttile -->
+				<ul>
+					{% for news in older_post %}
+					<li>
+						<img src="{{ news.image.url }}" alt="Avatar">
+						<a href="{{ news.get_absolute_url }}">{{ news.title }}</a>
+						<div class="date-like-comment">
+							<span class="date"><time datetime="{{ news.pub_date }}">{{ news.pub_date }}</time></span>
+							<a href="#" class="like"><i class="fa fa-eye"></i> {{ news.count_views }}</a>
+							<a href="{{ news.get_absolute_url }}#disqus_thread" data-disqus-identifier="{{ object.id }}" id="comment-number" class="comments">
+                                <i class="fa fa-comments-o"></i>
+
+                            </a>
+                        </div>
+					</li>
+					{% endfor %}
+
+				</ul>
+
+			</section> <!-- /#sidebar-older-post -->
 {% endblock %}

@@ -55,4 +55,3 @@ $(function() {
   	$("ul.subMneu1").removeClass('subMneu1').addClass("sub-menu");
   }
 });
-
