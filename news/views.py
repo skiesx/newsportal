@@ -24,7 +24,7 @@ class NewsDetailView(DetailView):
 
     queryset = News.objects.all()
 
-    # add +1 in count_views when page is open
+    # add +1 in count_views when page is was open
     def get_object(self):
         news_views = super(NewsDetailView, self).get_object()
         news_views.count_views += 1
@@ -35,6 +35,14 @@ class NewsDetailView(DetailView):
         context = super(NewsDetailView, self).get_context_data(**kwargs)
         context['popular_post'] = News.objects.order_by('-count_views')[:5]
         context['older_post'] = News.objects.order_by('-pub_date')[5:11]
+        related_posts = News.objects.filter(categories__in=self.object.categories.all())
+        # News.objects.filter(categories__in=self.object.categories.all()).exclude(self.object)
+        # News.objects.filter(categories__in=self.post.categories.all())
+        # News.objects.filter(categories__in=self.post.categories)
+        # News.objects.filter(categories__in=self.object.categories.all())
+
+        context['related_post'] = related_posts
+        # context['related_post'] = News.objects.filter(categories__name="News")
         context['now'] = timezone.now()
         return context
 

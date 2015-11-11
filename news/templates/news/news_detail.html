@@ -104,4 +104,31 @@
 				</ul>
 
 			</section> <!-- /#sidebar-older-post -->
+    {% endblock %}
+
+{% block related_post %}
+
+    <section id="ccr-article-related-post">
+				<div class="ccr-gallery-ttile">
+						<span class="bottom"></span>
+						<p>Related Post</p>
+				</div> <!-- .ccr-gallery-ttile -->
+				<ul>
+                    {% for news in related_post %}
+                        <li>
+							<div class="ccr-thumbnail">
+								<img src="{{ news.image.url }}" alt="thumbnail-small-1.jpg">
+								<p><a href="{{ news.get_absolute_url }}">Read More</a></p>
+							</div>
+							<h5><a href="#">{{ news.title }}</a></h5>
+						</li>
+                    {% endfor %}
+					</ul>
+
+
+			</section> <!-- /#ccr-article-related-post -->
+
+
+
+
 {% endblock %}
