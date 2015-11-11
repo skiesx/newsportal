@@ -7,6 +7,9 @@
 {% block latest-news %}
     <section id="ccr-blog">
 {% for news in object_list %}
+    {% if news.is_active %}
+
+
     <article>
 					<figure class="blog-thumbnails">
 					<img src="{{ news.image.url }}" alt="Article Image ">
@@ -30,6 +33,7 @@
 						</div>
 					</div> <!-- /.blog-text -->
 				</article>
+    {% endif %}
 {% endfor %}
     <div class="clearfix"></div>
     {% if is_paginated %}
