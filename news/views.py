@@ -57,3 +57,5 @@ class CategoryNewsList(ListView):
         context['older_post'] = News.objects.order_by('-pub_date')[5:11]
         context['now'] = timezone.now()
         return context
+
+

@@ -5,7 +5,7 @@ from redactor.fields import RedactorField
 from taggit.managers import TaggableManager
 from embed_video.fields import EmbedVideoField
 from autoslug import AutoSlugField
-
+import datetime
 # Create your models here.
 
 
@@ -20,17 +20,17 @@ class Categories(MPTTModel):
         order_insertion_by = ['name']
 
 
-class Galleries(models.Model):
-    title = models.CharField(max_length=255, verbose_name="Title")
-    image = models.ImageField(upload_to='media/news/%Y/%m/%d', verbose_name='Image')
-    author = models.ForeignKey(User, verbose_name="Author")
-
-    def __unicode__(self):
-        return self.title
-
-    class Meta:
-        verbose_name = "Gallery"
-        verbose_name_plural = "Galleries"
+# class Galleries(models.Model):
+#     title = models.CharField(max_length=255, verbose_name="Title")
+#     image = models.ImageField(upload_to='media/news/%Y/%m/%d', verbose_name='Image')
+#     author = models.ForeignKey(User, verbose_name="Author")
+#
+#     def __unicode__(self):
+#         return self.title
+#
+#     class Meta:
+#         verbose_name = "Gallery"
+#         verbose_name_plural = "Galleries"
 
 
 # class Comments(models.Model):
@@ -53,9 +53,9 @@ class News(models.Model):
     description = RedactorField(verbose_name="Description", upload_to='media/news/redactor/%Y/%m/%d')
     author = models.ForeignKey(User, verbose_name="Author")
     create_date = models.DateTimeField(verbose_name='Create date', auto_now_add=True)
-    pub_date = models.DateTimeField(verbose_name='Publish date', blank=True)
+    pub_date = models.DateTimeField(verbose_name='Publish date', blank=True, null=True)
     is_active = models.BooleanField(verbose_name="Publish?")
-    gallery = models.ManyToManyField(Galleries, blank=True, verbose_name="Gallery")
+    # gallery = models.ManyToManyField(Galleries, blank=True, verbose_name="Gallery")
     count_views = models.IntegerField(default=0, verbose_name="Views")
     # like = models.IntegerField(default=0, verbose_name="Likes")
     # slug = models.SlugField(unique=True, blank=True, verbose_name="Slug")
@@ -67,6 +67,11 @@ class News(models.Model):
 
     def __unicode__(self):
         return self.title
+
+    def save(self, *args, **kwargs):
+        if self.is_active:
+            self.pub_date = datetime.datetime.now()
+        super(News, self).save(*args, **kwargs)
 
     def get_absolute_url(self):
         from django.core.urlresolvers import reverse
