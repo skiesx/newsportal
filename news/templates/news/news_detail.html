@@ -8,7 +8,7 @@
 				<h1><a href="{{ news.slug }}" >{{ news.title }}</a></h1>
 
 				<div class="article-like-comment-date">
-					Posted by <a href="{{ news.author_id }}">{{ news.author }}</a> on <time datetime="{{ news.pub_date }}">{{ news.pub_date }}</time> in <a href="#category">
+					Posted by {{ news.author }} on <time datetime="{{ news.pub_date|date:"d-m-Y" }} }}">{{ news.pub_date|date:"d-m-Y" }}</time> in <a href="#category">
                     {% for category in categories %}
 					    {{ category }}
 					{% endfor %}
@@ -59,11 +59,12 @@
 				</div> <!-- .ccr-gallery-ttile -->
 				<ul>
 					{% for news in popular_post %}
+                        {% if news.is_active %}
                     <li>
 						<img src="{{ news.image.url }}" alt="Avatar">
 						<a href="{{ news.get_absolute_url }}">{{ news.title }}</a>
 						<div class="date-like-comment">
-							<span class="date"><time datetime="{{ news.pub_date }}">{{ news.pub_date }}</time></span>
+							<span class="date"><time datetime="{{ news.pub_date|date:"d-m-Y" }}">{{ news.pub_date|date:"d-m-Y" }}</time></span>
 							<a href="#" class="like"><i class="fa fa-eye"></i> {{ news.count_views }}</a>
 							<a href="{{ news.get_absolute_url }}#disqus_thread" data-disqus-identifier="{{ object.id }}" id="comment-number" class="comments">
                                 <i class="fa fa-comments-o"></i>
@@ -71,6 +72,7 @@
                             </a>
 						</div>
 					</li>
+                        {% endif %}
 
                 {% endfor %}
 				</ul>
@@ -87,11 +89,12 @@
 				</div> <!-- .ccr-gallery-ttile -->
 				<ul>
 					{% for news in older_post %}
+                    {% if news.is_active %}
 					<li>
 						<img src="{{ news.image.url }}" alt="Avatar">
 						<a href="{{ news.get_absolute_url }}">{{ news.title }}</a>
 						<div class="date-like-comment">
-							<span class="date"><time datetime="{{ news.pub_date }}">{{ news.pub_date }}</time></span>
+							<span class="date"><time datetime="{{ news.pub_date|date:"d-m-Y" }}">{{ news.pub_date|date:"d-m-Y" }}</time></span>
 							<a href="#" class="like"><i class="fa fa-eye"></i> {{ news.count_views }}</a>
 							<a href="{{ news.get_absolute_url }}#disqus_thread" data-disqus-identifier="{{ object.id }}" id="comment-number" class="comments">
                                 <i class="fa fa-comments-o"></i>
@@ -99,6 +102,7 @@
                             </a>
                         </div>
 					</li>
+                    {% endif %}
 					{% endfor %}
 
 				</ul>
@@ -115,6 +119,7 @@
 				</div> <!-- .ccr-gallery-ttile -->
 				<ul>
                     {% for news in related_post %}
+                        {% if news.is_active %}
                         <li>
 							<div class="ccr-thumbnail">
 								<img src="{{ news.image.url }}" alt="thumbnail-small-1.jpg">
@@ -122,6 +127,7 @@
 							</div>
 							<h5><a href="#">{{ news.title }}</a></h5>
 						</li>
+                        {% endif %}
                     {% endfor %}
 					</ul>
 

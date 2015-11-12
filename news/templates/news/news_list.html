@@ -8,8 +8,6 @@
     <section id="ccr-blog">
 {% for news in object_list %}
     {% if news.is_active %}
-
-
     <article>
 					<figure class="blog-thumbnails">
 					<img src="{{ news.image.url }}" alt="Article Image ">
@@ -78,11 +76,12 @@
 				</div> <!-- .ccr-gallery-ttile -->
                 <ul>
                 {% for news in popular_post %}
+                    {% if news.is_active %}
                     <li>
 						<img src="{{ news.image.url }}" alt="Avatar">
 						<a href="{{ news.get_absolute_url }}">{{ news.title }}</a>
 						<div class="date-like-comment">
-							<span class="date"><time datetime="{{ news.pub_date }}">{{ news.pub_date }}</time></span>
+							<span class="date"><time datetime="{{ news.pub_date|date:"d-m-Y" }}">{{ news.pub_date|date:"d-m-Y" }}</time></span>
 							<a href="#" class="like"><i class="fa fa-eye"></i> {{ news.count_views }}</a>
 							<a href="{{ news.get_absolute_url }}#disqus_thread" data-disqus-identifier="{{ object.id }}" id="comment-number" class="comments">
                                 <i class="fa fa-comments-o"></i>
@@ -90,6 +89,7 @@
                             </a>
 						</div>
 					</li>
+                    {% endif %}
 
                 {% endfor %}
                 </ul>
@@ -106,11 +106,12 @@
 				</div> <!-- .ccr-gallery-ttile -->
 				<ul>
 					{% for news in older_post %}
+                        {% if news.is_active %}
 					<li>
 						<img src="{{ news.image.url }}" alt="Avatar">
 						<a href="{{ news.get_absolute_url }}">{{ news.title }}</a>
 						<div class="date-like-comment">
-							<span class="date"><time datetime="{{ news.pub_date }}">{{ news.pub_date }}</time></span>
+							<span class="date"><time datetime="{{ news.pub_date|date:"d-m-Y" }}">{{ news.pub_date|date:"d-m-Y" }}</time></span>
 							<a href="#" class="like"><i class="fa fa-eye"></i> {{ news.count_views }}</a>
 							<a href="{{ news.get_absolute_url }}#disqus_thread" data-disqus-identifier="{{ object.id }}" id="comment-number" class="comments">
                                 <i class="fa fa-comments-o"></i>
@@ -118,6 +119,7 @@
                             </a>
                         </div>
 					</li>
+                        {% endif %}
 					{% endfor %}
 
 				</ul>
