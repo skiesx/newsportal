@@ -3,24 +3,24 @@ from news.models import News, Categories
 from django.contrib.auth.models import User
 
 
-class NewsTestCase(TestCase):
+class CategoriesTestCase(TestCase):
     def setUp(self):
-        test_cat = Categories.objects.create(name="hello")
-        test_user = User.objects.create(username='test_user')
-        News.objects.create(title="test", image="1.jpg", description="Lorem", author=test_user,
-                            pub_date="2015-11-08 08:38:08")
-        # Categories.objects.create(name="Tv-show", parent=self)
-        # Categories.objects.create(name="Music", parent=Categories.)
+        Categories.objects.create(name="hello")
 
     def test_categories(self):
-        pass
-        # tv_show = Categories.objects.get(name="Tv-show")
-        # music = Categories.objects.get(name="Music")
-        # self.assertEquals(tv_show.name, "adasd")
+        test_category = Categories.objects.get(name="hello")
+        self.assertEquals(test_category.name, "hello")
 
-    # def test_animals_can_speak(self):
-    #     """Animals that can speak are correctly identified"""
-    #     lion = Animal.objects.get(name="lion")
-    #     cat = Animal.objects.get(name="cat")
-    #     self.assertEqual(lion.speak(), 'The lion says "roar"')
-    #     self.assertEqual(cat.speak(), 'The cat says "meow"')
+
+class NewsTestCase(TestCase):
+    def setUp(self):
+        user = User.objects.create(username="hello")
+        cat = Categories.objects.create(name="hello")
+        news = News.objects.create(title="Test Case", description="Lorem", author_id=user.id, is_active=True)
+        news.save()
+        news.categories.add(cat)
+
+    def test_news(self):
+        test_news = News.objects.get(title="Test Case")
+        self.assertEquals(test_news.title, "Test Case")
+        self.assertEquals(test_news.count_views, 0)
