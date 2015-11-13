@@ -88,17 +88,17 @@ WSGI_APPLICATION = 'newsportal.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/1.8/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'NAME': 'newsportal',
-        'ENGINE': 'django.db.backends.mysql',
-        'USER': 'root',
-        'PASSWORD': '123',
-        'OPTIONS': {
-            'autocommit': True,
-        },
-    }
-}
+# DATABASES = {
+#     'default': {
+#         'NAME': 'newsportal',
+#         'ENGINE': 'django.db.backends.mysql',
+#         'USER': 'username',
+#         'PASSWORD': '',
+#         'OPTIONS': {
+#             'autocommit': True,
+#         },
+#     }
+# }
 
 
 # Internationalization
@@ -138,5 +138,12 @@ EMBED_VIDEO_BACKENDS = (
     'embed_video.backends.SoundCloudBackend',
 )
 
+
 DISQUS_API_KEY = 'bnmBg7oxAgjX9FkEUv8BOfKHfMrLZK4LO5dtHv6Py44ufu81cJz01eB7foiDJMI5'
 DISQUS_WEBSITE_SHORTNAME = 'newsportal'
+
+
+try:
+    from local_settings import *
+except ImportError:
+    pass
